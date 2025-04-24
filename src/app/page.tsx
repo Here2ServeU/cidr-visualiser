@@ -21,7 +21,7 @@ const themes = {
 export default function CIDRProVisualizer() {
   const [theme, setTheme] = useState("dark");
   const [cidr, setCidr] = useState("");
-  const [output, setOutput] = useState<any>(null);
+  const [output, setOutput] = useState<CIDRInfo | null>(null);
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
