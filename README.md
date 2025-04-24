@@ -2,7 +2,7 @@
 
 An interactive and professional web application that visualizes CIDR (Classless Inter-Domain Routing) blocks, showing key IP range details in a user-friendly UI.
 
-## ✨ Features
+## Features
 
 - Input CIDR notation (e.g., `192.168.1.0/24`)
 - See:
@@ -15,7 +15,7 @@ An interactive and professional web application that visualizes CIDR (Classless 
 - Fully responsive and styled with Tailwind CSS
 - Built with React and Next.js 15+
 
-## 📦 Tech Stack
+## Tech Stack
 
 - [Next.js 15+ (App Router)](https://nextjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
@@ -24,7 +24,7 @@ An interactive and professional web application that visualizes CIDR (Classless 
 
 ---
 
-## 🛠️ How to Build
+## How to Build
 
 ### 1. Clone the Repo
 
@@ -50,7 +50,7 @@ Visit: `http://localhost:3000`
 
 ---
 
-## 🚀 Deploy to Vercel
+## Deploy to Vercel
 
 1. Push the repo to GitHub
 2. Go to [vercel.com](https://vercel.com)
