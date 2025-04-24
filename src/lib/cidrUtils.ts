@@ -6,8 +6,8 @@ export function calculateCIDRInfo(cidr: string) {
   }
 
   const cidrObj = new IPCIDR(cidr);
-  const firstUsable = cidrObj.start({ type: "ip", from: 1 });
-  const lastUsable = cidrObj.end({ type: "ip", offset: -1 });
+  const firstUsable = cidrObj.start({ from: 1 }); // omit type
+  const lastUsable = cidrObj.end({ offset: -1 }); // omit type
   const subnetMask = cidrObj.subnetMask;
   const count = cidrObj.addressCount - 2;
 
