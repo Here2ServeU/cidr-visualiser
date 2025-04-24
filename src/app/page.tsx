@@ -3,6 +3,13 @@
 import React, { useState } from "react";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/solid";
 
+type CIDRInfo = {
+  netmask: string | number;
+  firstUsable: string;
+  lastUsable: string;
+  count: number;
+};
+
 const themes = {
   light: {
     background: "bg-white",
@@ -30,6 +37,7 @@ export default function CIDRProVisualizer() {
   const handleCIDRChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setCidr(value);
+
     try {
       const [ip, bits] = value.split("/");
       const base = ip.split(".").map(Number);
@@ -37,6 +45,7 @@ export default function CIDRProVisualizer() {
       const hostCount = Math.pow(2, 32 - netmaskBits) - 2;
       const first = base.map((b, i) => (i === 3 ? b + 1 : b)).join(".");
       const last = base.map((b, i) => (i === 3 ? b + hostCount : b)).join(".");
+
       setOutput({
         netmask: isNaN(netmaskBits) ? "Invalid" : netmaskBits,
         firstUsable: first,
@@ -49,7 +58,7 @@ export default function CIDRProVisualizer() {
   };
 
   return (
-    <div className={`min-h-screen px-6 py-10 ${themes[theme].background} ${themes[theme].text}`}>      
+    <div className={`min-h-screen px-6 py-10 ${themes[theme].background} ${themes[theme].text}`}>
       <div className="max-w-5xl mx-auto">
         <header className="flex justify-between items-center mb-6">
           <h1 className="text-4xl font-bold">CIDR Pro Visualizer</h1>
@@ -58,7 +67,7 @@ export default function CIDRProVisualizer() {
           </button>
         </header>
 
-        <div className="rounded-xl p-6 shadow-md border border-gray-600 ${themes[theme].box}">
+        <div className={`rounded-xl p-6 shadow-md border border-gray-600 ${themes[theme].box}`}>
           <label className="block mb-2 text-sm font-medium">Enter CIDR Notation:</label>
           <input
             type="text"
@@ -112,11 +121,14 @@ export default function CIDRProVisualizer() {
         )}
 
         <footer className="mt-12 text-center text-sm opacity-80">
-          <p>Built by <a href="https://www.linkedin.com/in/ready2assist/" target="_blank" className="underline">Emmanuel Naweji</a></p>
-          <p>Find the source on <a href="https://github.com/Here2ServeU/cidr-visualizer" target="_blank" className="underline">GitHub</a></p>
+          <p>
+            Built by <a href="https://www.linkedin.com/in/ready2assist/" target="_blank" className="underline">Emmanuel Naweji</a>
+          </p>
+          <p>
+            Find the source on <a href="https://github.com/Here2ServeU/cidr-visualizer" target="_blank" className="underline">GitHub</a>
+          </p>
         </footer>
       </div>
     </div>
   );
 }
-
