@@ -3,6 +3,10 @@
 import React, { useState } from "react";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/solid";
 
+// Fix: define allowable theme keys
+type Theme = "light" | "dark";
+
+// Define type for CIDR calculation results
 type CIDRInfo = {
   netmask: string | number;
   firstUsable: string;
@@ -10,7 +14,13 @@ type CIDRInfo = {
   count: number;
 };
 
-const themes = {
+// Theme settings for light and dark
+const themes: Record<Theme, {
+  background: string;
+  text: string;
+  box: string;
+  input: string;
+}> = {
   light: {
     background: "bg-white",
     text: "text-gray-900",
@@ -26,7 +36,7 @@ const themes = {
 };
 
 export default function CIDRProVisualizer() {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState<Theme>("dark");
   const [cidr, setCidr] = useState("");
   const [output, setOutput] = useState<CIDRInfo | null>(null);
 
@@ -79,45 +89,45 @@ export default function CIDRProVisualizer() {
         </div>
 
         {output && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-            <div className="p-4 rounded-lg shadow bg-gray-100 text-black">
-              <strong>Netmask</strong>
-              <p>{output.netmask}</p>
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+              <div className="p-4 rounded-lg shadow bg-gray-100 text-black">
+                <strong>Netmask</strong>
+                <p>{output.netmask}</p>
+              </div>
+              <div className="p-4 rounded-lg shadow bg-green-100 text-black">
+                <strong>First Usable IP</strong>
+                <p>{output.firstUsable}</p>
+              </div>
+              <div className="p-4 rounded-lg shadow bg-yellow-100 text-black">
+                <strong>Last Usable IP</strong>
+                <p>{output.lastUsable}</p>
+              </div>
+              <div className="p-4 rounded-lg shadow bg-blue-100 text-black">
+                <strong>IP Count</strong>
+                <p>{output.count}</p>
+              </div>
             </div>
-            <div className="p-4 rounded-lg shadow bg-green-100 text-black">
-              <strong>First Usable IP</strong>
-              <p>{output.firstUsable}</p>
-            </div>
-            <div className="p-4 rounded-lg shadow bg-yellow-100 text-black">
-              <strong>Last Usable IP</strong>
-              <p>{output.lastUsable}</p>
-            </div>
-            <div className="p-4 rounded-lg shadow bg-blue-100 text-black">
-              <strong>IP Count</strong>
-              <p>{output.count}</p>
-            </div>
-          </div>
-        )}
 
-        {output && (
-          <div className="mt-10 text-sm opacity-80 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="p-4 rounded border bg-gray-100 text-black">
-              <h3 className="font-semibold mb-1">Netmask</h3>
-              <p>The number of bits reserved for the network portion of the IP address. Determines the size of the subnet.</p>
+            <div className="mt-10 text-sm opacity-80 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="p-4 rounded border bg-gray-100 text-black">
+                <h3 className="font-semibold mb-1">Netmask</h3>
+                <p>The number of bits reserved for the network portion of the IP address. Determines the size of the subnet.</p>
+              </div>
+              <div className="p-4 rounded border bg-green-100 text-black">
+                <h3 className="font-semibold mb-1">First Usable IP</h3>
+                <p>The first IP address available for assignment to a host (right after the network address).</p>
+              </div>
+              <div className="p-4 rounded border bg-yellow-100 text-black">
+                <h3 className="font-semibold mb-1">Last Usable IP</h3>
+                <p>The final IP address that can be assigned to a device in the subnet (just before the broadcast address).</p>
+              </div>
+              <div className="p-4 rounded border bg-blue-100 text-black">
+                <h3 className="font-semibold mb-1">IP Count</h3>
+                <p>Total number of usable IP addresses in the subnet excluding network and broadcast addresses.</p>
+              </div>
             </div>
-            <div className="p-4 rounded border bg-green-100 text-black">
-              <h3 className="font-semibold mb-1">First Usable IP</h3>
-              <p>The first IP address available for assignment to a host (right after the network address).</p>
-            </div>
-            <div className="p-4 rounded border bg-yellow-100 text-black">
-              <h3 className="font-semibold mb-1">Last Usable IP</h3>
-              <p>The final IP address that can be assigned to a device in the subnet (just before the broadcast address).</p>
-            </div>
-            <div className="p-4 rounded border bg-blue-100 text-black">
-              <h3 className="font-semibold mb-1">IP Count</h3>
-              <p>Total number of usable IP addresses in the subnet excluding network and broadcast addresses.</p>
-            </div>
-          </div>
+          </>
         )}
 
         <footer className="mt-12 text-center text-sm opacity-80">
