@@ -1,6 +1,16 @@
 import IPCIDR from "ip-cidr";
 
-// Simple IP address decrementer
+// Convert BigInt to string IP
+function bigIntToIP(bigint: bigint): string {
+  return [
+    (bigint >> 24n) & 255n,
+    (bigint >> 16n) & 255n,
+    (bigint >> 8n) & 255n,
+    bigint & 255n
+  ].join(".");
+}
+
+// Subtract 1 from an IP address string
 function decrementIP(ip: string): string {
   const parts = ip.split(".").map(Number);
   for (let i = 3; i >= 0; i--) {
@@ -21,10 +31,8 @@ export function calculateCIDRInfo(cidr: string) {
 
   const cidrObj = new IPCIDR(cidr);
   const firstUsable = cidrObj.start({ from: 1 });
-
-  // Fix: convert BigInt to IP string using format()
   const broadcastBigInt = cidrObj.end({ type: "bigInteger" });
-  const broadcastIP = IPCIDR.format(broadcastBigInt);
+  const broadcastIP = bigIntToIP(broadcastBigInt);
   const lastUsable = decrementIP(broadcastIP);
 
   const subnetMask = cidrObj.subnetMask;

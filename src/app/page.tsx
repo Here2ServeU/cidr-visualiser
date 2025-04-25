@@ -3,10 +3,8 @@
 import React, { useState } from "react";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/solid";
 
-// Fix: define allowable theme keys
 type Theme = "light" | "dark";
 
-// Define type for CIDR calculation results
 type CIDRInfo = {
   netmask: string | number;
   firstUsable: string;
@@ -14,7 +12,6 @@ type CIDRInfo = {
   count: number;
 };
 
-// Theme settings for light and dark
 const themes: Record<Theme, {
   background: string;
   text: string;
