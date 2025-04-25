@@ -69,9 +69,14 @@ export default function CIDRProVisualizer() {
       <div className="max-w-5xl mx-auto">
         <header className="flex justify-between items-center mb-6">
           <h1 className="text-4xl font-bold">CIDR Pro Visualizer</h1>
-          <button onClick={toggleTheme} className="p-2 rounded bg-gray-700 text-white">
-            {theme === "dark" ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
-          </button>
+          <div className="flex flex-col items-center">
+            <button onClick={toggleTheme} className="p-2 rounded bg-gray-700 text-white">
+              {theme === "dark" ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
+            </button>
+            <span className="text-xs mt-1">
+              {theme === "dark" ? "Switch to Light" : "Switch to Dark"}
+            </span>
+          </div>
         </header>
 
         <div className={`rounded-xl p-6 shadow-md border border-gray-600 ${themes[theme].box}`}>
@@ -109,19 +114,19 @@ export default function CIDRProVisualizer() {
             <div className="mt-10 text-sm opacity-80 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
               <div className="p-4 rounded border bg-gray-100 text-black">
                 <h3 className="font-semibold mb-1">Netmask</h3>
-                <p>The number of bits reserved for the network portion of the IP address. Determines the size of the subnet.</p>
+                <p>The number of bits reserved for the network portion of the IP address.</p>
               </div>
               <div className="p-4 rounded border bg-green-100 text-black">
                 <h3 className="font-semibold mb-1">First Usable IP</h3>
-                <p>The first IP address available for assignment to a host (right after the network address).</p>
+                <p>The first IP address available for assignment to a host.</p>
               </div>
               <div className="p-4 rounded border bg-yellow-100 text-black">
                 <h3 className="font-semibold mb-1">Last Usable IP</h3>
-                <p>The final IP address that can be assigned to a device in the subnet (just before the broadcast address).</p>
+                <p>The last IP address assignable before the broadcast address.</p>
               </div>
               <div className="p-4 rounded border bg-blue-100 text-black">
                 <h3 className="font-semibold mb-1">IP Count</h3>
-                <p>Total number of usable IP addresses in the subnet excluding network and broadcast addresses.</p>
+                <p>Total usable IP addresses excluding network and broadcast.</p>
               </div>
             </div>
           </>
