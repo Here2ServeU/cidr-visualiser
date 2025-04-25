@@ -1,14 +1,15 @@
 import IPCIDR from "ip-cidr";
 
-// Convert BigInt to string IP (compatible with ES2019)
+// Convert BigInt to IP string (ES2019+ safe)
 function bigIntToIP(bigint: bigint): string {
   const part1 = (bigint >> BigInt(24)) & BigInt(255);
   const part2 = (bigint >> BigInt(16)) & BigInt(255);
   const part3 = (bigint >> BigInt(8)) & BigInt(255);
   const part4 = bigint & BigInt(255);
-  return [part1, part2, part3, part4].map((part) => part.toString()).join(".");
+  return [part1, part2, part3, part4].map(part => part.toString()).join(".");
 }
 
+// Decrement last IP address by 1
 function decrementIP(ip: string): string {
   const parts = ip.split(".").map(Number);
   for (let i = 3; i >= 0; i--) {
@@ -29,8 +30,13 @@ export function calculateCIDRInfo(cidr: string) {
 
   const cidrObj = new IPCIDR(cidr);
   const firstUsable = cidrObj.start({ from: 1 });
-  const broadcastBigInt = cidrObj.end({ type: "bigInteger" });
-  const broadcastIP = bigIntToIP(broadcastBigInt);
+
+  const rawEnd = cidrObj.end({ type: "bigInteger" });
+  if (typeof rawEnd !== "bigint") {
+    throw new Error("Unexpected format from CIDR end()");
+  }
+
+  const broadcastIP = bigIntToIP(rawEnd);
   const lastUsable = decrementIP(broadcastIP);
 
   const subnetMask = cidrObj.subnetMask;
