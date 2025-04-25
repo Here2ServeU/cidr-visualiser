@@ -9,7 +9,13 @@ function bigIntToIP(bigint: bigint): string {
   return [part1, part2, part3, part4].map(part => part.toString()).join(".");
 }
 
-// Subtract 1 from the last IP address
+// Calculate subnet mask from prefix length
+function prefixToNetmask(prefix: number): string {
+  const mask = (0xFFFFFFFF << (32 - prefix)) >>> 0;
+  return [24, 16, 8, 0].map(shift => (mask >> shift) & 255).join(".");
+}
+
+// Subtract 1 from last IP
 function decrementIP(ip: string): string {
   const parts = ip.split(".").map(Number);
   for (let i = 3; i >= 0; i--) {
@@ -29,6 +35,9 @@ export function calculateCIDRInfo(cidr: string) {
   }
 
   const cidrObj = new IPCIDR(cidr);
+  const prefixLength = parseInt(cidr.split("/")[1]);
+  const subnetMask = prefixToNetmask(prefixLength);
+
   const firstUsable = cidrObj.start({ from: 1 });
 
   const rawEnd = cidrObj.end({ type: "bigInteger" });
@@ -38,8 +47,6 @@ export function calculateCIDRInfo(cidr: string) {
 
   const broadcastIP = bigIntToIP(rawEnd);
   const lastUsable = decrementIP(broadcastIP);
-
-  const subnetMask = cidrObj.format().subnetMask;
   const count = cidrObj.addressCount - 2;
 
   return {
