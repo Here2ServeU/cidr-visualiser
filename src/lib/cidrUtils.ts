@@ -1,6 +1,6 @@
 import IPCIDR from "ip-cidr";
 
-// Convert BigInt to IP string (ES2019+ safe)
+// Convert BigInt to IP string
 function bigIntToIP(bigint: bigint): string {
   const part1 = (bigint >> BigInt(24)) & BigInt(255);
   const part2 = (bigint >> BigInt(16)) & BigInt(255);
@@ -9,7 +9,7 @@ function bigIntToIP(bigint: bigint): string {
   return [part1, part2, part3, part4].map(part => part.toString()).join(".");
 }
 
-// Decrement last IP address by 1
+// Subtract 1 from the last IP address
 function decrementIP(ip: string): string {
   const parts = ip.split(".").map(Number);
   for (let i = 3; i >= 0; i--) {
@@ -39,7 +39,7 @@ export function calculateCIDRInfo(cidr: string) {
   const broadcastIP = bigIntToIP(rawEnd);
   const lastUsable = decrementIP(broadcastIP);
 
-  const subnetMask = cidrObj.subnetMask;
+  const subnetMask = cidrObj.format().subnetMask;
   const count = cidrObj.addressCount - 2;
 
   return {
