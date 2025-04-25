@@ -1,16 +1,14 @@
 import IPCIDR from "ip-cidr";
 
-// Convert BigInt to string IP
+// Convert BigInt to string IP (compatible with ES2019)
 function bigIntToIP(bigint: bigint): string {
-  return [
-    (bigint >> 24n) & 255n,
-    (bigint >> 16n) & 255n,
-    (bigint >> 8n) & 255n,
-    bigint & 255n
-  ].join(".");
+  const part1 = (bigint >> BigInt(24)) & BigInt(255);
+  const part2 = (bigint >> BigInt(16)) & BigInt(255);
+  const part3 = (bigint >> BigInt(8)) & BigInt(255);
+  const part4 = bigint & BigInt(255);
+  return [part1, part2, part3, part4].map((part) => part.toString()).join(".");
 }
 
-// Subtract 1 from an IP address string
 function decrementIP(ip: string): string {
   const parts = ip.split(".").map(Number);
   for (let i = 3; i >= 0; i--) {
