@@ -1,36 +1,71 @@
-# CIDR Pro Visualizer
+# CIDR Visualizer
 
-An interactive and professional web application that visualizes CIDR (Classless Inter-Domain Routing) blocks, showing key IP range details in a user-friendly UI.
-
-## Features
-
-- Input CIDR notation (e.g., `192.168.1.0/24`)
-- See:
-  - Netmask
-  - First Usable IP
-  - Last Usable IP
-  - IP Count
-- Theme toggle: Light / Dark mode
-- Professional cards with explanations for each value
-- Fully responsive and styled with Tailwind CSS
-- Built with React and Next.js 15+
-
-## Tech Stack
-
-- [Next.js 15+ (App Router)](https://nextjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Heroicons](https://heroicons.com/)
-- Deployed via [Vercel](https://vercel.com/)
+An interactive and professional web application that visualizes CIDR (Classless Inter-Domain Routing) blocks, showing key IP range details in a user-friendly UI. Ideal for Cloud, DevOps, and Network Engineers.
 
 ---
 
-## How to Build
+## The Challenge
+
+Planning subnets using CIDR notation can be error-prone and unintuitive, especially when dealing with cloud infrastructure. Engineers often need quick, visual feedback on ranges, usable IPs, and subnet layouts.
+
+---
+
+## The Objective
+
+Build a modern tool that:
+- Parses and visualizes any CIDR block
+- Shows usable IP range, subnet mask, IP count
+- Includes responsive UI with light/dark mode
+- Provides subnetting examples for VPC design
+
+---
+
+## Tech Stack
+
+- **Framework**: Next.js 15+ (App Router)
+- **Styling**: Tailwind CSS
+- **Icons**: Heroicons
+- **Deployment**: Vercel
+
+---
+
+## Live Demo
+
+👉 [cidr-visualiser.vercel.app](https://cidr-visualiser.vercel.app)
+
+---
+
+## Project Structure
+
+```
+cidr-visualiser/
+├── assets/              # Profile image and branding
+├── public/              # Static files
+├── src/
+│   ├── app/             # Next.js App Router pages
+│   │   ├── page.tsx         # Home (CIDR Input)
+│   │   ├── layout.tsx       # Shared layout
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   └── vpc-subnetting/  # Subnetting examples
+│   ├── lib/             # Utility logic
+│   │   └── cidrUtils.ts
+│   └── components/      # (Optional) Reusable components
+├── next.config.ts
+├── package.json
+├── tsconfig.json
+├── README.md
+```
+
+---
+
+## How to Run Locally
 
 ### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/yourusername/cidr-pro-visualizer.git
-cd cidr-pro-visualizer
+git clone https://github.com/Here2ServeU/cidr-visualiser.git
+cd cidr-visualiser
 ```
 
 ### 2. Install Dependencies
@@ -40,44 +75,46 @@ npm install
 npm install @heroicons/react
 ```
 
-### 3. Run Locally
+### 3. Start Development Server
 
 ```bash
 npm run dev
 ```
 
-Visit: `http://localhost:3000`
+Visit `http://localhost:3000`
 
 ---
 
-## Deploy to Vercel
+## How to Deploy (Vercel)
 
-1. Push the repo to GitHub
+1. Push your repo to GitHub
 2. Go to [vercel.com](https://vercel.com)
-3. Click **“New Project”**, import the repo
-4. Deploy and optionally add a custom domain (e.g., `cidr.abc`)
+3. Click **"New Project"**, import your repo
+4. Deploy with default settings or add a custom domain
 
---- 
+---
 
-## <div align="center">About the Author</div>
+## VPC Subnetting Examples
 
-<div align="center">
-  <img src="assets/emmanuel-naweji.jpg" alt="Emmanuel Naweji" width="120" height="120" style="border-radius: 50%;" />
-</div>
+Navigate to the **"VPC Subnetting"** tab to view real-world subnetting plans:
 
-**Emmanuel Naweji** is a seasoned Cloud and DevOps Engineer with years of experience helping companies architect and deploy secure, scalable infrastructure. He is the founder of initiatives that train and mentor individuals seeking careers in IT and has helped hundreds transition into Cloud, DevOps, and Infrastructure roles.
+- AWS-style VPC `10.0.0.0/16` with Public/Private subnets
+- GCP/Azure examples with logical segmentation
+- Each subnet shows CIDR block + Availability Zone
 
-- Book a free consultation: [https://here4you.setmore.com](https://here4you.setmore.com)
-- Connect on LinkedIn: [https://www.linkedin.com/in/ready2assist/](https://www.linkedin.com/in/ready2assist/)
+---
 
-Let's connect and discuss how I can help you build reliable, automated infrastructure the right way.
+## About the Author
 
+**Emmanuel Naweji** – Cloud & DevOps Engineer helping companies build secure, automated infrastructure. Founder of multiple IT upskilling programs.
 
+- Book a consultation](https://here4you.setmore.com)
+- [LinkedIn Profile](https://linkedin.com/in/ready2assist)
 
---- 
+---
 
-MIT License © 2025 Emmanuel Naweji
+## License
 
-You are free to use, copy, modify, merge, publish, distribute, sublicense, or sell copies of this software and its associated documentation files (the “Software”), provided that the copyright and permission notice appears in all copies or substantial portions of the Software.
+MIT © 2025 Emmanuel Naweji  
+Use freely with attribution. No warranties provided.
 
-This Software is provided “as is,” without any warranty — express or implied — including but not limited to merchantability, fitness for a particular purpose, or non-infringement. In no event will the authors be liable for any claim, damages, or other liability arising from the use of the Software.
