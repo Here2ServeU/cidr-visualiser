@@ -24,10 +24,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className="antialiased bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300">
         <nav className="flex items-center gap-6 px-6 py-4 bg-gray-100 dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 shadow-sm">
           <Link href="/" className="font-semibold text-sm hover:underline">
             CIDR Tool
